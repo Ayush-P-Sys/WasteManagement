@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Donation Form</title>
+    <style>
+      /* Button Styling */
+      .donate-btn {
+        margin-left: 65rem;
+        background-color: #4caf50;
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+      }
+
+      .donate-btn:hover {
+        background-color: #45a049;
+      }
+
+      /* Form Styling */
+      .donation-form {
+        display: block;
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Donate Button  -->
+
+    <!-- Donation Form -->
+    <div id="donationForm" class="donation-form">
+      <h2>Donation Form</h2>
+      <!-- <form onsubmit="submitForm(event)"> -->
+      <form action="/donation.html" method="POST">
+        <div class="form-group">
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone:</label>
+          <input type="number" id="phone" name="phone" required />
+        </div>
+
+        <div class="form-group">
+          <label for="donationType">Donation Type:</label>
+          <select id="donationType" name="donationType" required>
+            <option value="">Select type</option>
+            <option value="food">Food</option>
+            <option value="clothes">Clothes</option>
+            <option value="both">Both</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description of Items:</label>
+          <textarea
+            id="description"
+            name="description"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="pickup">Preferred Pickup Date:</label>
+          <input type="date" id="pickup" name="pickup" required />
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Donation</button>
+      </form>
+    </div>
+
+    <script>
+      // function showDonationForm() {
+      //     document.getElementById("donationForm").style.display = "block";
+      // }
+      function submitForm(event) {
+        event.preventDefault();
+        alert("Thank you for your donation!");
+        document.getElementById("donationForm").style.display = "none";
+        // Here you would typically handle the form submission to your backend
+      }
+    </script>
+  </body>
+</html>

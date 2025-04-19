@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <h1>Complaints</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Location</th>
+          <th>Contact</th>
+          <th>Weight</th>
+          <th>Image</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for complaint in complaints %}
+        <tr>
+          <td>{{ complaint.Id }}</td>
+          <td>{{ complaint.Location }}</td>
+          <td>{{ complaint.ContactNumber }}</td>
+          <td>{{ complaint.Weight }}</td>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h1>Donations</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Contact</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for donation in donations %}
+        <tr>
+          <td>{{ donation.Id }}</td>
+          <td>{{ donation.Name }}</td>
+          <td>{{ donation.Email }}</td>
+          <td>{{ donation.ContactNumber }}</td>
+          <td>{{ donation.Dtype }}</td>
+          <td>{{ donation.DonationDescription }}</td>
+          <td>{{ donation.PickupDate }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
