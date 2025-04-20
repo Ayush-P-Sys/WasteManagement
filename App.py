@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify,Response
 from Complaindb import *
 from Donationsdb import *
+from DashBoardEndpoints import *
 import sqlite3
 
 
@@ -69,6 +70,11 @@ def donate():
 
 
 
+@app.route('/dashb.html')
+def dashb():
+   return render_template('dashb.html')
+
+
 @app.route('/DashBoard.html')
 def dashboard():
     conn = sqlite3.connect("WasteManagement.db")
@@ -79,6 +85,28 @@ def dashboard():
     conn.close()
     return render_template('DashBoard.html', complaints=complaints, donations=donations)
 
+# DonotionsEndpoint
+#
+@app.route("/Dono")
+def GetDono():
+   return SendAllDetailsDonations()
+
+# ComplainEndpoint
+#
+
+@app.route("/Comp")
+def Getcomplain():
+   return   SendAllDetailsComplainDb()
+
+
+
+# image Endpoint
+@app.route("/image/<int:id>")
+def serve_image(id):
+    img_blob = ImageParser(id)
+    if img_blob:
+        return Response(img_blob, mimetype="image/jpeg")
+    return "Image not found", 404
 
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0', port=5000)
