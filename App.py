@@ -16,7 +16,6 @@ def index():
 @app.route("/complinform.html")
 def Compli():
     return render_template("complinform.html")
-
 @app.route("/complinform.html", methods=["POST"])
 def Complainfrom():
   try:
