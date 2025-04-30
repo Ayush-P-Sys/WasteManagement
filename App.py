@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify,Response
 from Complaindb import *
 from Donationsdb import *
 from DashBoardEndpoints import *
+from LoginDB import *
 import sqlite3
 
 
@@ -106,6 +107,60 @@ def serve_image(id):
     if img_blob:
         return Response(img_blob, mimetype="image/jpeg")
     return "Image not found", 404
+
+
+
+#Signup Route
+
+@app.route('/SignUp.html')
+def SignUp():
+   return render_template('SignUp.html')
+
+
+@app.route("/SignUp", methods=["POST"])
+def Add_User():
+  try:
+    data = request.get_json()
+    Uemail = data.get("email")
+    Upass = data.get("pass")
+
+    # Simulated AddUser function
+    Uadd = AddUser(Uemail, Upass)
+
+    if Uadd:
+        return jsonify({"message": "User added"})
+    else:
+        return jsonify({"error": "Failed to upload to database."}), 500
+  except Exception as e:
+    return jsonify({"error": str(e)}), 500
+
+
+
+#Login Route
+
+@app.route('/Login.html')
+def LogIn():
+   return render_template('Login.html')
+
+
+@app.route("/Login", methods=["POST"])
+def Check():
+  try:
+    data = request.get_json()
+    Uemail = data.get("email")
+    Upass = data.get("pass")
+
+    # Simulated AddUser function
+    IsUser = Check_user(Uemail, Upass)
+
+    if IsUser:
+        return jsonify({"message": "Welcome"})
+    else:
+        return jsonify({"error": "Email or password incorrect."}), 500
+  except Exception as e:
+    return jsonify({"error": str(e)}), 500
+
+
 
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0', port=5000)
