@@ -120,10 +120,7 @@
           const result = await response.json();
 
           if (response.ok) {
-            alert(result.message || "Login successful!");
-            form.reset();
-            errorMsg.textContent = "";
-            // Optionally redirect: window.location.href = "/dashboard";
+            window.location.href = "/"; // ✅ Redirects to homepage after login
           } else {
             errorMsg.textContent = result.error || "Invalid credentials.";
           }

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify,Response
+from flask import Flask, render_template, request, jsonify,Response , session ,redirect,url_for
 from Complaindb import *
 from Donationsdb import *
 from DashBoardEndpoints import *
@@ -7,7 +7,7 @@ import sqlite3
 
 
 app = Flask(__name__, template_folder="Template/")
-
+app.secret_key = "1140a4ffefc25f141377c9f38aac8483"
 
 @app.route("/")
 def index():
@@ -16,7 +16,11 @@ def index():
 
 @app.route("/complinform.html")
 def Compli():
+    if 'user' not in session:
+        return redirect(url_for('LogIn'))
     return render_template("complinform.html")
+
+
 @app.route("/complinform.html", methods=["POST"])
 def Complainfrom():
   try:
@@ -41,7 +45,9 @@ def Complainfrom():
 
 @app.route("/donation.html")
 def RenderDon():
-  return render_template("donation.html")
+    if 'user' not in session:
+        return redirect(url_for('LogIn'))
+    return render_template("donation.html")
 
 
 
@@ -140,7 +146,15 @@ def Add_User():
 
 @app.route('/Login.html')
 def LogIn():
-   return render_template('Login.html')
+  if 'user' in session:
+    return redirect(url_for('index'))
+  return render_template('Login.html')
+
+
+@app.route("/logout")
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('index'))
 
 
 @app.route("/Login", methods=["POST"])
@@ -154,6 +168,7 @@ def Check():
     IsUser = Check_user(Uemail, Upass)
 
     if IsUser:
+        session['user'] = Uemail
         return jsonify({"message": "Welcome"})
     else:
         return jsonify({"error": "Email or password incorrect."}), 500
